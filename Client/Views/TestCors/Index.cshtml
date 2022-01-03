@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Index </title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <style>
+       #box1{
+           display:inline-block;
+           height:200px;
+           width:200px;
+           background-color:red;
+       }
+        #box2 {
+            height: 200px;
+            width: 200px;
+            position: fixed;
+            background-color: yellow;
+            left: 20px;
+            display: inline-block;
+        }
+        #box3 {
+            display: inline-block;
+            background-color: blue;
+            height: 200px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="box1">Class A</div>
+        <div id="box2">Class B</div>
+        <div id="box3">Class C</div>
+    </div>
+</body>
+</html>
+<script>
+    $.ajax({
+        url: "https://localhost:44321/API/Employees/TestCors",
+        success: function (result) {
+            console.log(result);
+        }
+    })
+</script>
