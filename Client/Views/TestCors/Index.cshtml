@@ -8,33 +8,45 @@
     <title> Index </title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <style>
-       #box1{
-           display:inline-block;
-           height:200px;
-           width:200px;
-           background-color:red;
-       }
+
+        * {
+            
+        }
+        .container {
+            border: 1px solid red;
+            width: 500px;
+           
+            position: relative;
+            margin: auto;
+        }
+        #box1 {
+
+            height: 200px;
+            width: 200px;
+           
+            background-color: red;
+        }
         #box2 {
             height: 200px;
-            width: 200px;
-            position: fixed;
-            background-color: yellow;
-            left: 20px;
-            display: inline-block;
+            width: 200px;  
+            background-color: green;
+            position:relative;
+            bottom:150px;
+            left:150px;
         }
         #box3 {
-            display: inline-block;
-            background-color: blue;
             height: 200px;
             width: 200px;
+            background-color: blue;  
         }
+      
     </style>
 </head>
 <body>
-    <div>
-        <div id="box1">Class A</div>
-        <div id="box2">Class B</div>
-        <div id="box3">Class C</div>
+    <div class="container">
+        <div id="box1">Static</div>
+        <div id="box2">Absolute</div>
+        <div id="box3">Fixed</div>
     </div>
 </body>
 </html>
