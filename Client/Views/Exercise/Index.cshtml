@@ -1,23 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    Layout = "_Layout_Native";
+    Layout = "_Layout";
 }
-
-<div class="container">
-    <h1 class="header">📋 Programming News</h1>
-    <div class="button-group">
-        <button onclick="htmlFunction()" id="button-html" class="active">Html</button>
-        <button onclick="cssFunction()" id="button-css">Css</button>
-        <button onclick="javascriptFunction()" id="button-javascript">JavaScript</button>
+    <div class="row">
+        <div class="col">
+            <h2 class="title">The Basic Languange of the web : HTML</h2>
+            <p class="date-post">Posted by <b>Mozilla</b> on Monday, June 21st 2027</p>
+            <img id="image" src="/image/pic_html.jpeg" class="img-thumbnail mb-2" alt="HTML code on a screen" />
+            <p class="body-topic">
+                HTML (HyperText Markup Language) is the most basic building block of the Web.
+                It defines the meaning and structure of web content.
+                Other technologies besides HTML are generally used to describe a web page's appearance/presentation (CSS)
+                or functionality/behavior (JavaScript).
+            </p>
+        </div>
     </div>
-    <h2 class="title" style="color:orangered;">The Basic Languange of the web : HTML</h2>
-    <p class="date-post">Posted by <b>Mozilla</b> on Monday, June 21st 2027</p>
-    <img id="image" src="/image/pic_html.jpeg" width="500" height="250" alt="HTML code on a screen" />
-    <h3 class="topic">What is HTML?</h3>
-    <p class="body-topic">
-        HTML (HyperText Markup Language) is the most basic building block of the Web.
-        It defines the meaning and structure of web content.
-        Other technologies besides HTML are generally used to describe a web page's appearance/presentation (CSS)
-        or functionality/behavior (JavaScript).
-    </p>
-</div>
+    <div class="button-group">
+        <button onclick="htmlFunction()" id="button-html" class="btn btn-link">Html</button>
+        <button onclick="cssFunction()" id="button-css" class="btn btn-link">Css</button>
+        <button onclick="javascriptFunction()" id="button-javascript" class="btn btn-link">JavaScript</button>
+    </div>
