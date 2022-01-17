@@ -65,14 +65,14 @@ namespace HumanResourceAPI
 
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Manager", new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser().RequireClaim("roles", "Manager").Build());
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("Manager", new AuthorizationPolicyBuilder()
+            //        .RequireAuthenticatedUser().RequireClaim("roles", "Manager").Build());
+            //});
 
            
         }
@@ -103,9 +103,9 @@ namespace HumanResourceAPI
             
             app.UseAuthorization();
 
-            app.UseCors(options => options.WithOrigins("https://localhost:44300"));
+     // app.UseCors(options => options.WithOrigins("https://localhost:44300"));
             
-            //app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,7 +1,22 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
+/*show sweetalert error*/
+function alertError(message) {
+    Swal.fire({
+        icon: 'error',
+        text: message,
+    })
+}
 
-// Write your JavaScript code.
+/*show sweetalert success*/
+function alertSuccess(message) {
+    Swal.fire({
+        icon: 'success',
+        text: message,
+    })
+}
+
+
+
 
 $.ajax({
     url: 'https://pokeapi.co/api/v2/pokemon'
@@ -76,19 +91,19 @@ function getDetail(url) {
             if (val.base_stat > 50) {
                 stats += `
 <div class="d-flex justify-content-between">
-<h3 class="text-capitalize">${ val.stat.name}</h3><span>${val.base_stat} %</span>
+<h3 class="text-capitalize">${val.stat.name}</h3><span>${val.base_stat} %</span>
 </div>
 
 <div class="progress mb-3">
-  <div class="progress-bar" role="progressbar" style="width: ${val.base_stat}%;""  aria-valuenow="${ val.base_stat}" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar" role="progressbar" style="width: ${val.base_stat}%;""  aria-valuenow="${val.base_stat}" aria-valuemin="0" aria-valuemax="100"></div>
 </div>`
             } else {
                 stats += `
 <div class="d-flex justify-content-between">
-<h3 class="text-capitalize">${ val.stat.name}</h3><span>${val.base_stat} %</span>
+<h3 class="text-capitalize">${val.stat.name}</h3><span>${val.base_stat} %</span>
 </div>
 <div class="progress mb-3">
-  <div class="progress-bar bg-danger" role="progressbar" style="width: ${val.base_stat}%;"  aria-valuenow="${ val.base_stat}" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar bg-danger" role="progressbar" style="width: ${val.base_stat}%;"  aria-valuenow="${val.base_stat}" aria-valuemin="0" aria-valuemax="100"></div>
 </div>`
             }
 
@@ -107,6 +122,8 @@ function getDetail(url) {
     });
 
 }
+
+
 
 function htmlFunction() {
 

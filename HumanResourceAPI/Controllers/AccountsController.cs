@@ -39,7 +39,7 @@ namespace HumanResourceAPI.Controllers
 
                 if (!isEmail)
                 {
-                    return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "Account not found" });
+                    return Ok(new JwtToken { status = HttpStatusCode.BadRequest, idtoken = null, message = "Account not found" });
                 }
 
 
@@ -64,17 +64,17 @@ namespace HumanResourceAPI.Controllers
                         );
                     var idToken = new JwtSecurityTokenHandler().WriteToken(token);
                     claims.Add(new Claim("Token Security", idToken.ToString()));
-                    return Ok(new { status = HttpStatusCode.OK, result = 1, idToken, message = "Successful login" });
+                    return Ok(new { status = HttpStatusCode.OK, idToken = idToken, message = "Successful login" });
                 }
                 else
                 {
-                    return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "Your password is invalid, Please try again" });
+                    return Ok(new JwtToken { status = HttpStatusCode.BadRequest, idtoken = null, message = "Your password is invalid, Please try again" });
                 }
 
             }
             catch (Exception e)
             {
-                return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong" });
+                return BadRequest(new JwtToken { status = HttpStatusCode.InternalServerError, idtoken = null, message = "Something has gone wrong" });
             }
         }
 

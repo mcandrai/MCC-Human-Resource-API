@@ -21,11 +21,18 @@ namespace HumanResourceAPI.Controllers
             this.repository = repository;
         }
 
-        [Authorize("Manager")]
+     
         [HttpGet]
         public ActionResult<Entity> Get() 
         {
             var result = repository.Get();
+            return Ok(result);
+        }
+
+        [HttpGet("{key}")]
+        public virtual ActionResult<Entity> Get(Key key)
+        {
+            var result = repository.Get(key);
             return Ok(result);
         }
 

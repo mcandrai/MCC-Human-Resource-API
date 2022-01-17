@@ -22,11 +22,11 @@ namespace HumanResourceAPI.Controllers
         }
 
         
-        [Authorize]
-        [HttpGet("TestJWT")]
-        public ActionResult TestJWT()
-        {
-            return Ok("JWT is work");
-        }
+       // [Authorize]
+        //[HttpGet("TestJWT")]
+        //public ActionResult TestJWT()
+        //{
+        //    return Ok("JWT is work");
+        //}
     }
 }

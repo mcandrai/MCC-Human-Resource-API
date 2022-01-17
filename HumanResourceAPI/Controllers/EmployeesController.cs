@@ -19,68 +19,233 @@ namespace HumanResourceAPI.Controllers
     public class EmployeesController : BaseController<Employee, EmployeeRepository, string>
     {
         private readonly EmployeeRepository employeeRepository;
-        
+
         public EmployeesController(EmployeeRepository employeeRepository) : base(employeeRepository)
         {
             this.employeeRepository = employeeRepository;
-            
+
         }
 
-        [HttpPost]
-        [Route("Register")]
+        ////Register employee
+        //[HttpPost]
+        //[Route("Register")]
+        //public ActionResult Register(Register register)
+        //{
+        //    try
+        //    {
+        //        bool isDuplicateEmail = employeeRepository.DuplicateEmailValue(register);
 
-        public ActionResult Register(Register register)
+
+        //        if (isDuplicateEmail)
+        //        {
+        //            return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "Email already used!" });
+        //        }
+
+        //        bool isDuplicatePhone = employeeRepository.DuplicatePhoneValue(register);
+
+        //        if (isDuplicatePhone)
+        //        {
+        //            return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "Phone Number already used!" });
+        //        }
+        //        else
+        //        {
+        //            employeeRepository.RegisterStore(register);
+        //            return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully added data!" });
+        //        }
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong!" });
+        //    }
+
+        //}
+
+        //Get all employee
+        [HttpGet]
+        [Route("Register")]
+        public ActionResult<Register> GetRegisterData()
         {
             try
             {
-                bool isDuplicateEmail = employeeRepository.DuplicateEmailValue(register);
-                
+                var result = employeeRepository.GetRegisterData();
+                return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully get data", data = result });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong" });
+            }
+        }
 
-                if (isDuplicateEmail)
+        //Get employee by id
+        [HttpPost]
+        [Route("Register-NIK")]
+        public ActionResult<EmployeeNIK> GetRegisterDataByNIK(EmployeeNIK employeeNIK)
+        {
+            try
+            {
+                var result = employeeRepository.GetRegisterDataByNIK(employeeNIK);
+                if (result == null)
                 {
-                    return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "Email Number already used" });
-                }
-
-                bool isDuplicatePhone = employeeRepository.DuplicatePhoneValue(register);
-                
-                if (isDuplicatePhone)
-                {
-                    return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "Phone Number already used" });
+                    return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "NIK not available!" });
                 }
                 else
                 {
-                    employeeRepository.RegisterStore(register);
-                    return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully added data" });
+                    return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully get data", data = result });
                 }
-            
                 
             }
             catch (Exception e)
             {
                 return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong" });
             }
-
         }
 
-        //[Authorize(Roles ="Manager")]
-      
-      [HttpGet]
-      [Route("Register")]
-       // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-
-        public ActionResult<Register> GetRegisterData()
+        //Get detail  employee
+        [HttpPost]
+        [Route("Register-Detail")]
+        public ActionResult<EmployeeNIK> GetRegisterDetailDataByNIK(EmployeeNIK employeeNIK)
         {
-            var result = employeeRepository.GetRegisterData();
+            try
+            {
+                var result = employeeRepository.GetRegisterDetailDataByNIK(employeeNIK);
+                return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully get data", data = result });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong" });
+            }
+        }
+
+
+
+
+
+        [HttpGet]
+        [Route("Register-Client")]
+        public ActionResult<Register> GetRegisterClient()
+        {
+            try
+            {
+                var result = employeeRepository.GetRegisterClient();
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong" });
+            }
+        }
+
+        //Get all employee based on university
+        [HttpGet]
+        [Route("Register/Base-University")]
+        public ActionResult<Register> GetRegisterBaseUniversity()
+        {
+            try
+            {
+                var result = employeeRepository.GetRegisterBaseUniversity();
+                return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully get data", data = result });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong" });
+            }
+        }
+
+        //Get all employee based on gender
+        [HttpGet]
+        [Route("Register/Base-Gender")]
+        public ActionResult<Register> GetRegisterBaseGender()
+        {
+            try
+            {
+                var result = employeeRepository.GetRegisterBaseGender();
+                return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully get data", data = result });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong" });
+            }
+        }
+
+        //Delete employee
+        [HttpDelete]
+        [Route("Register")]
+        public ActionResult<Register> DeleteRegisterData(Register register)
+        {
+            try
+            {
+                bool result = employeeRepository.DeleteRegister(register);
+                return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully delete data" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong" });
+            }
+        }
+
+        [HttpDelete]
+        [Route("{NIK}")]
+        public virtual ActionResult Remove(string NIK)
+        {
+            employeeRepository.RemoveEducation(NIK);
+            var result = employeeRepository.RemoveEmployee(NIK);
             return Ok(result);
         }
 
-       [HttpGet]
-       [Route("TestCors")]
-       public ActionResult TestCors()
+        [HttpGet]
+        [Route("Detail/{NIK}")]
+        public virtual ActionResult<Register> Detail(string NIK)
         {
-            return Ok("Test Cors berhasil");
+            var result = employeeRepository.DetailEmployee(NIK);
+            return Ok(result);
         }
 
+        [HttpPost]
+        [Route("Register")]
+        public ActionResult<Register> Register(Register register)
+        {
+            
+        //    try
+        //    {
+        //        bool isDuplicateEmail = employeeRepository.DuplicateEmailValue(register);
 
+
+        //        if (isDuplicateEmail)
+        //        {
+        //            return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "Email already used!" });
+        //        }
+
+        //        bool isDuplicatePhone = employeeRepository.DuplicatePhoneValue(register);
+
+        //        if (isDuplicatePhone)
+        //        {
+        //            return BadRequest(new { status = HttpStatusCode.BadRequest, result = 0, message = "Phone Number already used!" });
+        //        }
+        //        else
+        //        {
+        //            employeeRepository.RegisterStore(register);
+        //            return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully added data!" });
+        //        }
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong!" });
+        //    }
+
+            var result = employeeRepository.RegisterEmployee(register);
+            return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully added data!" });
+
+        }
+
+        [HttpPut]
+        [Route("Register/Update")]
+        public ActionResult<Register> RegisterUpdate(Register register)
+        {
+            var result = employeeRepository.UpdateEmployee(register);
+            return Ok(result);
+
+        }
     }
 }
