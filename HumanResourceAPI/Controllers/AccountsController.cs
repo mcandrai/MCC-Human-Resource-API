@@ -28,9 +28,9 @@ namespace HumanResourceAPI.Controllers
             this._configuration = configuration;
         }
 
+        //api login employee
         [HttpPost]
-        [Route("Login")]
-
+        [Route("v1.0/login")]
         public ActionResult Login(Login login)
         {
             try
@@ -39,9 +39,8 @@ namespace HumanResourceAPI.Controllers
 
                 if (!isEmail)
                 {
-                    return Ok(new JwtToken { status = HttpStatusCode.BadRequest, idtoken = null, message = "Account not found" });
+                    return Ok(new JwtToken { status = HttpStatusCode.BadRequest, code = 0, idToken = null, message = "Account not found!" });
                 }
-
 
                 bool isLogin = accountRepository.Login(login);
 
@@ -51,7 +50,7 @@ namespace HumanResourceAPI.Controllers
                     var claims = new List<Claim>
                     {
                         new Claim("email", login.Email),
-                        new Claim("role", employeeRole) 
+                        new Claim("role", employeeRole)
                     };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
                     var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -64,17 +63,17 @@ namespace HumanResourceAPI.Controllers
                         );
                     var idToken = new JwtSecurityTokenHandler().WriteToken(token);
                     claims.Add(new Claim("Token Security", idToken.ToString()));
-                    return Ok(new { status = HttpStatusCode.OK, idToken = idToken, message = "Successful login" });
+                    return Ok(new JwtToken { status = HttpStatusCode.OK, code = 1, idToken = idToken, message = "Successful login!" });
                 }
                 else
                 {
-                    return Ok(new JwtToken { status = HttpStatusCode.BadRequest, idtoken = null, message = "Your password is invalid, Please try again" });
+                    return Ok(new JwtToken { status = HttpStatusCode.BadRequest, code = 0, idToken = null, message = "Your password is invalid, Please try again!" });
                 }
 
             }
             catch (Exception e)
             {
-                return BadRequest(new JwtToken { status = HttpStatusCode.InternalServerError, idtoken = null, message = "Something has gone wrong" });
+                return BadRequest(new JwtToken { status = HttpStatusCode.InternalServerError, idToken = null, message = "Something has gone wrong!" });
             }
         }
 

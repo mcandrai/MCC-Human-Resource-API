@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Client.Controllers
 {
     [Authorize(Roles = "Employee, Manager, Direktur")]
-    public class ExerciseController : Controller
+    public class PokemonController : Controller
     {
         public IActionResult Index()
         {

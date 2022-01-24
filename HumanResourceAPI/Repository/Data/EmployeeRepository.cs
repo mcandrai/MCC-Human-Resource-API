@@ -322,5 +322,23 @@ namespace HumanResourceAPI.Repository.Data
             return getData;
 
         }
+
+        public ReportData AllReport()
+        {
+            var emp = myContext.Employees.Count();
+            var acc = myContext.Accounts.Count();
+            var edu = myContext.Educations.Count();
+            var uni = myContext.Universities.Count();
+
+            var getReport = new ReportData
+            {
+                employee = emp,
+                account = acc,
+                education = edu,
+                university = uni
+            };
+
+            return getReport;
+        }
     }
 }

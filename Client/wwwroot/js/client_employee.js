@@ -174,7 +174,7 @@ function updateEmployee() {
         success: function (data) {
             closeUpdateEmployeeModal();
             employeeTable.ajax.reload();
-            alertSuccess();
+            alertSuccessUpdate();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var error = jqXHR.responseJSON;
@@ -314,6 +314,13 @@ function alertSuccess() {
     Swal.fire({
         icon: 'success',
         text: 'Successfully save data!',
+    })
+}
+
+function alertSuccessUpdate() {
+    Swal.fire({
+        icon: 'success',
+        text: 'Successfully update data!',
     })
 }
 

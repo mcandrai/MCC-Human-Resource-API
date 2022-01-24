@@ -20,8 +20,13 @@ namespace Client.Controllers
             _logger = logger;
         }
 
+        [HttpGet("/Dashboard")]
         public IActionResult Index()
         {
+            if (User.IsInRole("Employee"))
+            {
+                return RedirectToAction("index", "pokemon");
+            }
             return View();
         }
 

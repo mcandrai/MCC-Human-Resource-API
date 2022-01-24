@@ -93,10 +93,21 @@ namespace Client
                 var request = context.HttpContext.Request;
                 var response = context.HttpContext.Response;
 
+                if (response.StatusCode == (int)HttpStatusCode.NotFound)
+                {
+                    response.Redirect("https://localhost:44300/error/notfound");
+                }
+
                 if (response.StatusCode == (int)HttpStatusCode.Unauthorized)
                 {
-                    response.Redirect("https://localhost:44300/Login");
+                    response.Redirect("https://localhost:44300/error/authorize");
                 }
+
+                if (response.StatusCode == (int)HttpStatusCode.Forbidden)
+                {
+                    response.Redirect("https://localhost:44300/error/forbidden");
+                }
+
 
             });
             app.UseAuthentication();

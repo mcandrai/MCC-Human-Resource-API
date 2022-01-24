@@ -31,27 +31,29 @@ namespace Client.Controllers
             return Json(result);
         }
 
-        [HttpPost("Accounts/Login")]
+        [HttpPost("v1.0/login")]
         public async Task<IActionResult> Auth(Login login)
         {
             var jwtToken = await accountRepository.Auth(login);
-            var token = jwtToken.idtoken;
+            var token = jwtToken.idToken;
 
-            
+            string status = jwtToken.status.ToString();
 
             if (token == null)
             {
-                TempData["code"] = token;
+                TempData["status"] = status;
                 TempData["message"] = jwtToken.message;
                 return RedirectToAction("index","login");
             }
 
             HttpContext.Session.SetString("JWToken", token);
+      
+                return RedirectToAction("index", "home");
+            
            
-
-            return RedirectToAction("index", "home");
         }
 
+  
         [HttpGet("Accounts/Logout")]
         public IActionResult Logout()
         {

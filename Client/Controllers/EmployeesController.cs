@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Client.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Direktur, Manager")]
     public class EmployeesController : BaseController<Employee, EmployeeRepository, string>
     {
         private readonly EmployeeRepository employeeRepository;
@@ -49,6 +49,14 @@ namespace Client.Controllers
             var result = await employeeRepository.Detail(NIK);
             return Json(result);
         }
+
+        [HttpGet("Employees/Report")]
+        public JsonResult ReportAll()
+        {
+            var result =  employeeRepository.ReportAll();
+            return Json(result);
+        }
+
 
         [HttpPost]
         public JsonResult Register(Register register)

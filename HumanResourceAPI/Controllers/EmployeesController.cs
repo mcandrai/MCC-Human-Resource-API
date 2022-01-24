@@ -118,9 +118,6 @@ namespace HumanResourceAPI.Controllers
         }
 
 
-
-
-
         [HttpGet]
         [Route("Register-Client")]
         public ActionResult<Register> GetRegisterClient()
@@ -246,6 +243,22 @@ namespace HumanResourceAPI.Controllers
             var result = employeeRepository.UpdateEmployee(register);
             return Ok(result);
 
+        }
+
+        //Get all employee based on gender
+        [HttpGet]
+        [Route("Register/Report")]
+        public ActionResult<ReportData> ReportDataAll()
+        {
+            try
+            {
+                var result = employeeRepository.AllReport();
+                return Ok(new { status = HttpStatusCode.OK, result = 1, message = "Successfully get data", data = result });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { status = HttpStatusCode.InternalServerError, result = e, message = "Something has gone wrong" });
+            }
         }
     }
 }

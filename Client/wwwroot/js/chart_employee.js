@@ -1,4 +1,25 @@
-﻿/*show bar chart*/
+﻿
+/*show report data*/
+
+$.ajax({
+    type: 'GET',
+    url: 'https://localhost:44300/employees/report',
+    contentType: 'application/json;charset=utf-8',
+    dataType: 'json',
+    success: function (result) {
+        console.log(result);
+        document.getElementById("count-employee").innerHTML = result.data.employee;
+        document.getElementById("count-account").innerHTML = result.data.account;
+        document.getElementById("count-education").innerHTML = result.data.education;
+        document.getElementById("count-university").innerHTML = result.data.university;
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        alertError(errorThrown);
+    }
+})
+
+
+/*show bar chart*/
 
 let dataEmployee = [];
 let dataUniversity = [];

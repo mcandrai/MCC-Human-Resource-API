@@ -19,6 +19,7 @@ namespace HumanResourceAPI.Repository.Data
             this.myContext = myContext;
         }
 
+        //validate data employee login
         public bool Login(Login login)
         {
             var getEmail = myContext.Employees.FirstOrDefault(e => e.Email == login.Email);

@@ -9,7 +9,8 @@ namespace HumanResourceAPI.ModelView
     public class JwtToken
     {
         public HttpStatusCode status { get; set; }
-        public string idtoken { get; set; }
+        public int code { get; set; }
+        public string idToken { get; set; }
         public string message { get; set; }
 
     }

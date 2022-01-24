@@ -48,13 +48,13 @@ namespace Client.Repositories.Data
             return entities;
         }
 
-        //login with jwt direct to backend
+        //login employee
         public async Task<JwtToken> Auth(Login login)
         {
             JwtToken token = null;
 
             StringContent content = new StringContent(JsonConvert.SerializeObject(login), Encoding.UTF8, "application/json");
-            var result = await httpClient.PostAsync(request + "Login/", content);
+            var result = await httpClient.PostAsync(request + "v1.0/login/", content);
 
             string apiResponse = await result.Content.ReadAsStringAsync();
             token = JsonConvert.DeserializeObject<JwtToken>(apiResponse);

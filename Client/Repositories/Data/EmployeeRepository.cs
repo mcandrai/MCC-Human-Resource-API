@@ -53,6 +53,21 @@ namespace Client.Repositories.Data
             return entity;
         }
 
+        //detailreport  to backend
+        public object ReportAll()
+        {
+
+            Object entities = new object();
+
+            using (var response = httpClient.GetAsync(address.link + request + "register/report").Result)
+            {
+                string apiResponse = response.Content.ReadAsStringAsync().Result;
+                entities = JsonConvert.DeserializeObject<Object>(apiResponse);
+            }
+
+            return entities;
+        }
+
         //register employee to backend
         public Object Register(Register entity)
         {
